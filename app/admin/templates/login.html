@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block body %}
+<body class="container-tight py-4 d-flex justify-content-center align-items-center">
+<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="{{ bot_username }}"
+        data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+<script type="text/javascript">
+    function onTelegramAuth(user) {
+      fetch("{{ request.url }}", {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+          window.location.href = "{{ redirect_url }}";
+      });
+    }
+</script>
+</body>
+{% endblock %}

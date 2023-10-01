@@ -1,0 +1,13 @@
+aiogram==3.1.1
+aiohttp==3.8.5
+aiomysql==0.2.0
+cachetools~=5.3.1
+cryptography==41.0.4
+environs==9.5.0
+fastapi==0.103.2
+itsdangerous==2.1.2
+redis==5.0.1
+SQLAlchemy==2.0.21
+starlette==0.31.1
+starlette-admin==0.11.2
+uvicorn==0.23.2
