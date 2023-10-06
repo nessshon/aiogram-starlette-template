@@ -16,4 +16,4 @@ class IsPrivate(BaseFilter):
         :param event_chat: The chat object associated with the event.
         :return: True if the message is in a private chat, False otherwise.
         """
-        return event or event_chat.type == ChatType.PRIVATE
+        return event_chat.type == ChatType.PRIVATE
