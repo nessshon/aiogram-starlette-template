@@ -86,8 +86,9 @@ class User(Base):
                 setattr(user, key, value)
         except NoResultFound:
             user = User(user_id=user_id, **kwargs)
+            session.add(user)
 
-        await session.flush()
+        await session.commit()
         return user
 
     @staticmethod
