@@ -1,4 +1,21 @@
-<h1 align="center">🤖 Aiogram-Starlette Template</h1>
+# 🤖 Aiogram Starlette Template
+
+[![Telegram Bot](https://img.shields.io/badge/Bot-grey?logo=telegram)](https://core.telegram.org/bots)
+![Python Versions](https://img.shields.io/badge/Python-3.10-black?color=FFE873&labelColor=3776AB)
+[![License](https://img.shields.io/github/license/nessshon/aiogram-starlette-template)](https://github.com/nessshon/aiogram-starlette-template/blob/main/LICENSE)
+[![Telegram](https://img.shields.io/badge/Login_Widget-blue?logo=telegram&logoColor=white)](https://telegram.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-white?logo=fastapi&logoColor=green)](https://fastapi.tiangolo.com/)
+[![Starlette](https://img.shields.io/badge/Starlette-white?logo=starlette&logoColor=black)](https://www.starlette.io/)
+[![PHPMyAdmin](https://img.shields.io/badge/PHPMyAdmin-white?logo=php&logoColor=green)](https://www.phpmyadmin.net/)
+[![MySQL](https://img.shields.io/badge/MySQL-white?logo=mysql&logoColor=red)](https://www.mysql.com/)
+[![Redis](https://img.shields.io/badge/Redis-Yes?logo=redis&color=white)](https://redis.io/)
+[![Certbot](https://img.shields.io/badge/Certbot-white?logo=letsencrypt&logoColor=red)](https://certbot.eff.org/)
+[![Nginx](https://img.shields.io/badge/Nginx-white?logo=nginx&logoColor=green)](https://www.nginx.com/)
+[![Docker](https://img.shields.io/badge/Docker-blue?logo=docker&logoColor=white)](https://www.docker.com/)
+
+
+<img src="https://telegra.ph//file/550fe083f6eaa36c3f64b.jpg" width="50%"><img src="https://telegra.ph//file/20cf7d8a48597177e4f9b.jpg" width="50%">
+<img src="https://telegra.ph//file/95075ad356b3b139b928a.jpg" width="50%"><img src="https://telegra.ph//file/77b0e2ca4c075c68fc30b.jpg" width="50%">
 
 ## Features
 
@@ -7,73 +24,116 @@
 - [Starlette-Admin](https://github.com/jowilf/starlette-admin/) as web Admin Panel
 - [Telegram Login Widget](https://core.telegram.org/widgets/login/) for admin authorization
 
-## Screenshots
+## Project Components:
 
-<img src="https://telegra.ph//file/550fe083f6eaa36c3f64b.jpg" width="50%"><img src="https://telegra.ph//file/20cf7d8a48597177e4f9b.jpg" width="50%">
-<img src="https://telegra.ph//file/95075ad356b3b139b928a.jpg" width="50%"><img src="https://telegra.ph//file/77b0e2ca4c075c68fc30b.jpg" width="50%">
+* **MySQL** - Database management system.
+* **Nginx** - Proxy server for routing and handling web requests.
+* **Certbot** - SSL certificate management and issuance.
+* **phpMyAdmin** - Web-based database administration tool.
+* **Admin Panel** - Custom web interface for administrative tasks.
+* **Telegram Bot** - Bot implementation for interacting on Telegram.
+* **Redis** - In-memory data structure store, commonly used as a cache.
 
-## Installation
+## Launch and deployment:
 
-1. Clone this [template](https://github.com/nessshon/aiogram-starlette-template):
+* Clone this repo:
 
     ```bash
-    git clone https://github.com/nessshon/aiogram-starlette-template
+    git clone https://github.com/nessshon/aiogram-starlette-template.git
     ```
 
-2. Go to the project folder:
+* Go to the project folder:
 
     ```bash
     cd aiogram-starlette-template
     ```
 
-3. Create environment variables file:
+* Clone environment variables file:
 
     ```bash
     cp .env.example .env
     ```
 
-4. Configure [environment variables](#environment-variables-reference) file:
+* Configure [environment variables](#environment-variables-reference) variables file:
 
     ```bash
     nano .env
     ```
 
-5. Install requirements:
+<details>
+<summary><b>Continuation for local launch</b></summary>
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+* Install dependencies
 
-6. Run app:
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-    ```bash
-    python -m app
-    ```
+* Launch project:
 
-### Environment variables reference
+  ```bash
+  python -m project
+  ```
 
-| Variable            | Type | Description                                                 | Example             |
-|---------------------|------|-------------------------------------------------------------|---------------------|
-| BOT_TOKEN           | str  | Bot token, get it from [@BotFather](https://t.me/BotFather) | 123456:qweRTY       | 
-| BOT_USERNAME        | str  | The username of the bot                                     | same_bot            |
-| BOT_DEV_ID          | int  | User ID of the bot developer                                | 123456789           |
-| BOT_ADMIN_ID        | int  | User ID of the bot administrator                            | 123456789           |
-| APP_HOST            | str  | The host address where the app is running                   | localhost           |
-| APP_PORT            | int  | The port number on which the app is listening               | 8000                |
-| APP_DEBUG           | bool | Set this variable to enable or disable debugging            | False               |
-| ADMIN_BASE_URL      | str  | The base URL for the admin panel routes                     | /admin              |
-| ADMIN_TEMPLATES_DIR | str  | The directory path for the admin panel templates            | {}/admin/templates  |
-| ADMIN_STATICS_DIR   | str  | The directory path for the admin panel static files         | {}/admin/statics    |
-| ADMIN_LANGUAGES     | list | The supported languages for the admin panel                 | en,ru               |
-| ADMIN_TITLE         | str  | The title of the admin panel                                | Admin Panel         |
-| WEBHOOK_SECRET      | str  | Secret key for securing the webhook                         | qwerty12345         |
-| WEBHOOK_DOMAIN      | str  | The domain of the webhook                                   | https://example.com |
-| WEBHOOK_PATH        | str  | The path of the webhook                                     | /bot                |
-| REDIS_HOST          | str  | The hostname or IP address of the Redis server              | localhost           |
-| REDIS_PORT          | int  | The port number on which the Redis server is running        | 6379                |
-| REDIS_DB            | int  | The Redis database number                                   | 1                   |
-| DB_HOST             | str  | The hostname or IP address of the database server           | localhost           |
-| DB_PORT             | int  | The port number on which the database server is running     | 3306                |
-| DB_USERNAME         | str  | The username for accessing the database                     | user                |
-| DB_PASSWORD         | str  | The password for accessing the database                     | password            |
-| DB_DATABASE         | str  | The name of the database                                    | dbname              |
+</details>
+
+<details>
+<summary><b>Continuation for server deployment</b></summary>
+
+The deployment script handles the creation of containers for MySQL and Redis.\
+Configures MySQL and Redis databases.\
+Configures Nginx as a proxy server for web requests.\
+Uses Certbot to generate and renew SSL certificates for secure communications.\
+Launches the admin panel, Telegram Bot and phpMyAdmin.
+
+* Change server_name on [phpmyadmin.conf](services/nginx/user_conf.d/phpmyadmin.conf):
+
+  ```nginx
+  server_name pma.example.com www.pma.example.com;
+  ```
+
+* Change server_name on [project.conf](services/nginx/user_conf.d/project.conf) :
+
+  ```nginx
+  server_name app.example.com www.app.example.com;
+  ```
+
+* Install Docker and docker-compose:
+
+  ```bash
+  sudo apt install docker.io docker-compose -y
+  ```
+
+* Deploy the project:
+
+  ```bash
+  docker-compose up --build
+  ```
+
+</details>
+
+## Environment Variables Reference
+
+Here is a reference guide for the environment variables used in the project:
+
+| Variable            | Type | Description                                                   | Example Local             | Example Prod        |
+|---------------------|------|---------------------------------------------------------------|---------------------------|---------------------|
+| BOT_TOKEN           | str  | Bot token, obtained from [@BotFather](https://t.me/BotFather) | 123456:qweRTY             | 123456:qweRTY       | 
+| BOT_USERNAME        | str  | The username of the bot                                       | same_bot                  | same_bot            |
+| BOT_DEV_ID          | int  | User ID of the bot developer                                  | 123456789                 | 123456789           |
+| BOT_ADMIN_ID        | int  | User ID of the bot administrator                              | 123456789                 | 123456789           |
+| APP_URL             | str  | The domain of the webhook                                     | https://...ngrok.free.app | https://example.com |
+| APP_HOST            | str  | The host address where the app is running                     | localhost                 | 0.0.0.0             |
+| APP_PORT            | int  | The port number on which the app is listening                 | 8000                      | 8000                |
+| WEBHOOK_SECRET      | str  | Secret key for securing the webhook                           | qwerty12345               | qwerty12345         |
+| WEBHOOK_PATH        | str  | The path of the webhook                                       | /bot                      | /bot                |
+| REDIS_HOST          | str  | The hostname or IP address of the Redis server                | localhost                 | redis               |
+| REDIS_PORT          | int  | The port number on which the Redis server is running          | 6379                      | 6379                |
+| REDIS_DB            | int  | The Redis database number                                     | 1                         | 1                   |
+| MYSQL_ROOT_PASSWORD | str  | Root password for MySQL                                       | --skip--                  | root-password       |  
+| MYSQL_HOST          | str  | The hostname or IP address of the database server             | localhost                 | localhost           |
+| MYSQL_PORT          | int  | The port number on which the database server is running       | 3306                      | 3306                |
+| MYSQL_USER          | str  | The username for accessing the database                       | user                      | user                |
+| MYSQL_PASSWORD      | str  | The password for accessing the database                       | password                  | password            |
+| MYSQL_DATABASE      | str  | The name of the database                                      | dbname                    | dbname              |
+| CERTBOT_EMAIL       | str  | Email address for Certbot notifications                       | --skip--                  | example@mail.com    |

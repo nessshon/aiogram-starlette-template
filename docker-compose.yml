@@ -1,0 +1,59 @@
+version: "3.8"
+
+
+services:
+
+  project:
+    build: .
+    command: sh -c "cd /usr/src/project && python -m project"
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - mysql
+      - nginx
+    volumes:
+      - ./:/usr/src/project
+
+  mysql:
+    image: mysql:8.2.0
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: unless-stopped
+    env_file: ./.env
+    volumes:
+      - ./services/mysql/data:/var/lib/mysql
+
+  phpmyadmin:
+    image: docker.io/bitnami/phpmyadmin:5
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      DATABASE_HOST: mysql
+    ports:
+      - "8080:80"
+
+  nginx:
+    image: jonasal/nginx-certbot:5.0.0
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./services/nginx/user_conf.d:/etc/nginx/user_conf.d
+      - ./services/certbot/letsencrypt:/etc/letsencrypt
+      - ./project/admin/statics:/var/www/admin/statics
+
+  redis:
+    image: redis:7.2.3-alpine
+    restart: unless-stopped
+    volumes:
+      - ./services/redis/data:/data
+
+volumes:
+  mysql-data:
+  redis-data:
+  nginx_secrets:
