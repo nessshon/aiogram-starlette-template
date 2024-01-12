@@ -3,6 +3,10 @@
 [![Telegram Bot](https://img.shields.io/badge/Bot-grey?logo=telegram)](https://core.telegram.org/bots)
 ![Python Versions](https://img.shields.io/badge/Python-3.10-black?color=FFE873&labelColor=3776AB)
 [![License](https://img.shields.io/github/license/nessshon/aiogram-starlette-template)](https://github.com/nessshon/aiogram-starlette-template/blob/main/LICENSE)
+
+<img src="https://telegra.ph//file/550fe083f6eaa36c3f64b.jpg" width="50%"><img src="https://telegra.ph//file/20cf7d8a48597177e4f9b.jpg" width="50%">
+<img src="https://telegra.ph//file/95075ad356b3b139b928a.jpg" width="50%"><img src="https://telegra.ph//file/77b0e2ca4c075c68fc30b.jpg" width="50%">
+
 [![Telegram](https://img.shields.io/badge/Login_Widget-blue?logo=telegram&logoColor=white)](https://telegram.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-white?logo=fastapi&logoColor=green)](https://fastapi.tiangolo.com/)
 [![Starlette](https://img.shields.io/badge/Starlette-white?logo=starlette&logoColor=black)](https://www.starlette.io/)
@@ -12,11 +16,6 @@
 [![Certbot](https://img.shields.io/badge/Certbot-white?logo=letsencrypt&logoColor=red)](https://certbot.eff.org/)
 [![Nginx](https://img.shields.io/badge/Nginx-white?logo=nginx&logoColor=green)](https://www.nginx.com/)
 [![Docker](https://img.shields.io/badge/Docker-blue?logo=docker&logoColor=white)](https://www.docker.com/)
-
-
-<img src="https://telegra.ph//file/550fe083f6eaa36c3f64b.jpg" width="50%"><img src="https://telegra.ph//file/20cf7d8a48597177e4f9b.jpg" width="50%">
-<img src="https://telegra.ph//file/95075ad356b3b139b928a.jpg" width="50%"><img src="https://telegra.ph//file/77b0e2ca4c075c68fc30b.jpg" width="50%">
-
 ## Features
 
 - [Aiogram 3x](https://github.com/aiogram/aiogram/) as Telegram Bot API
