@@ -20,34 +20,18 @@ def setup_logger(log_level=logging.INFO, logs_dir=".logs") -> None:
         level=log_level,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # noqa
         handlers=[
-            _get_file_handler(logs_dir),
-            _get_console_handler(),
+            TimedRotatingFileHandler(
+                filename=os.path.join(logs_dir, f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"),
+                when="midnight",
+                interval=1,
+                backupCount=7,  # Keep logs for 7 days
+            ),
+            logging.StreamHandler(),
         ]
     )
 
     # Set the log level for specific loggers
     _set_logger_level("aiogram.event", logging.CRITICAL)
-
-
-def _get_file_handler(logs_dir: str) -> logging.Handler:
-    """
-    Get a TimedRotatingFileHandler for logging to a file.
-    """
-    filename = os.path.join(logs_dir, f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log")
-    file_handler = TimedRotatingFileHandler(
-        filename=filename,
-        when="midnight",
-        interval=1,
-        backupCount=7,  # Keep logs for 7 days
-    )
-    return file_handler
-
-
-def _get_console_handler() -> logging.Handler:
-    """
-    Get a StreamHandler for logging to the console.
-    """
-    return logging.StreamHandler()
 
 
 def _set_logger_level(logger_name: str, level: int) -> None:

@@ -73,7 +73,6 @@ config = load_config()
 webhook_path = config.webhook.PATH + config.bot.TOKEN
 webhook_url = config.app.URL + webhook_path
 
-
 # Create async engine and async_sessionmaker
 engine = create_async_engine(
     url=config.database.url(),

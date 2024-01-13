@@ -9,7 +9,6 @@ router = APIRouter()
 
 
 @router.get("/example")
-@router.post("/example")
 async def handler(request: Request) -> Response:
     """
     Example separate api route.

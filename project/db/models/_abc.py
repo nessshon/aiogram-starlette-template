@@ -5,6 +5,7 @@ import typing as t
 from sqlalchemy import *
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from sqlalchemy.orm import InstrumentedAttribute
+from sqlalchemy.sql import func
 
 from ._base import Base
 
@@ -21,7 +22,7 @@ class AbstractModel(Base):
         """
         Convert the data to a dictionary.
         """
-        return {f"{self.__tablename__}_{col.name}": getattr(self, col.name) for col in
+        return {f"{self.__tablename__}_{c.name}": getattr(self, c.name) for c in
                 t.cast(t.List[Column], self.__table__.columns)}
 
     @staticmethod
@@ -212,6 +213,7 @@ class AbstractModel(Base):
             sessionmaker: async_sessionmaker,
             page_size: int = 10,
     ) -> int:
+        """Get the total number of pages for pagination."""
         async with sessionmaker() as async_session:
             statement = select(func.count(cls.__table__.primary_key.columns[0]))
             query = await async_session.execute(statement)
@@ -224,6 +226,7 @@ class AbstractModel(Base):
             page_size: int = 10,
             **kwargs,
     ) -> int:
+        """Get the total number of pages for pagination with a filter."""
         async with sessionmaker() as async_session:
             statement = (
                 select(func.count(cls.__table__.primary_key.columns[0]))

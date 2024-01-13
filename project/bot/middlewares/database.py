@@ -16,7 +16,7 @@ class DBSessionMiddleware(BaseMiddleware):
         """
         Initialize the DBSessionMiddleware.
 
-        :param sessionmaker: The async async_sessionmaker object for creating database sessions.
+        :param sessionmaker: The SQLAlchemy sessionmaker object.
         """
         super().__init__()
         self.sessionmaker = sessionmaker
