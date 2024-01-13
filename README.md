@@ -7,9 +7,9 @@
 <img src="https://telegra.ph//file/550fe083f6eaa36c3f64b.jpg" width="50%"><img src="https://telegra.ph//file/20cf7d8a48597177e4f9b.jpg" width="50%">
 <img src="https://telegra.ph//file/95075ad356b3b139b928a.jpg" width="50%"><img src="https://telegra.ph//file/77b0e2ca4c075c68fc30b.jpg" width="50%">
 
-[![Telegram](https://img.shields.io/badge/Login_Widget-blue?logo=telegram&logoColor=white)](https://telegram.org/)
+[![Starlette](https://img.shields.io/badge/Starlette-admin-white?logo=starlette&logoColor=black)](https://www.starlette.io/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-white?logo=fastapi&logoColor=green)](https://fastapi.tiangolo.com/)
-[![Starlette](https://img.shields.io/badge/Starlette-white?logo=starlette&logoColor=black)](https://www.starlette.io/)
+[![Telegram](https://img.shields.io/badge/Login_Widget-white?logo=telegram&logoColor=blue)](https://telegram.org/)
 [![PHPMyAdmin](https://img.shields.io/badge/PHPMyAdmin-white?logo=php&logoColor=green)](https://www.phpmyadmin.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-white?logo=mysql&logoColor=red)](https://www.mysql.com/)
 [![Redis](https://img.shields.io/badge/Redis-Yes?logo=redis&color=white)](https://redis.io/)
