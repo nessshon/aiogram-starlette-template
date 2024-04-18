@@ -5,6 +5,7 @@ services:
 
   project:
     build: .
+    container_name: "project"
     command: sh -c "cd /usr/src/project && python -m project"
     restart: unless-stopped
     env_file: ./.env
@@ -18,7 +19,8 @@ services:
       - ./:/usr/src/project
 
   mysql:
-    image: mysql:8.2.0
+    image: mysql:8.3.0
+    container_name: "project-mysql"
     command: --default-authentication-plugin=caching_sha2_password
     restart: unless-stopped
     env_file: ./.env
@@ -27,6 +29,7 @@ services:
 
   phpmyadmin:
     image: docker.io/bitnami/phpmyadmin:5
+    container_name: "project-phpmyadmin"
     restart: unless-stopped
     env_file: ./.env
     environment:
@@ -36,6 +39,7 @@ services:
 
   nginx:
     image: jonasal/nginx-certbot:5.0.0
+    container_name: "project-nginx"
     restart: unless-stopped
     env_file:
       - ./.env
@@ -48,7 +52,8 @@ services:
       - ./project/admin/statics:/var/www/admin/statics
 
   redis:
-    image: redis:7.2.3-alpine
+    image: redis:7.2.4-alpine
+    container_name: "project-redis"
     restart: unless-stopped
     volumes:
       - ./services/redis/data:/data
