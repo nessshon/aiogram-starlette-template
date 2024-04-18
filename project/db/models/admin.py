@@ -1,5 +1,5 @@
 from sqlalchemy import *
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from ._abc import AbstractModel
 
@@ -8,32 +8,31 @@ class AdminDB(AbstractModel):
     """
     Model representing Admin table.
     """
-    id = Column(
+    id: Mapped[int] = mapped_column(
         Integer,
         primary_key=True,
         autoincrement=True,
         nullable=False,
     )
-    user_id = Column(
+    user_id = mapped_column(
         ForeignKey(
             "users.id",
             ondelete="CASCADE",
         ),
         nullable=False,
     )
-    roles = Column(
+    roles = mapped_column(
         JSON,
         nullable=False,
         default=[],
     )
-    created_at = Column(
+    created_at = mapped_column(
         DateTime,
         default=func.now(),
     )
-    user = relationship("UserDB", backref="admin_users")
+    user: Mapped["UserDB"] = relationship("UserDB", backref="admin_users")
 
     __tablename__ = "admins"
-
     __admin_icon__ = "fas fa-user-tie"
     __admin_label__ = "Admin"
     __admin_name__ = "Admins"

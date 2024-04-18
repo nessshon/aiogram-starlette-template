@@ -1,6 +1,6 @@
 import logging
 import os
-from datetime import datetime
+
 from logging.handlers import TimedRotatingFileHandler
 
 
@@ -21,10 +21,10 @@ def setup_logger(log_level=logging.INFO, logs_dir=".logs") -> None:
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # noqa
         handlers=[
             TimedRotatingFileHandler(
-                filename=os.path.join(logs_dir, f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"),
-                when="midnight",
+                filename=os.path.join(logs_dir, f"project.log"),
+                when="D",
                 interval=1,
-                backupCount=7,  # Keep logs for 7 days
+                backupCount=31,
             ),
             logging.StreamHandler(),
         ]

@@ -1,15 +1,16 @@
 # https://github.com/jowilf/starlette-admin/tree/main/examples/auth
-
 import asyncio
 import hashlib
 import hmac
 
 from dataclasses import dataclass, asdict
-from typing import Optional
+from typing import Optional, Union
 
+from starlette.applications import Starlette
 from starlette.middleware.base import RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.responses import Response, RedirectResponse
+from starlette.routing import Route, Match, Mount, WebSocketRoute
 from starlette.status import HTTP_303_SEE_OTHER
 from starlette_admin import BaseAdmin
 from starlette_admin.auth import AdminUser as BaseAdminUser
@@ -22,6 +23,16 @@ from project.db.models import AdminDB
 from project.admin.views import AdminRoles
 
 
+def pop_none(data: dict) -> dict:
+    """
+    Remove None values from the dictionary.
+
+    :param data: The dictionary to remove None values from.
+    :return: The dictionary with None values removed.
+    """
+    return {k: v for k, v in data.items() if v is not None}
+
+
 def is_data_authentic(data: dict, bot_token: str) -> bool:
     """
     Check if the data received from Telegram OAuth is authentic and not tampered with.
@@ -30,6 +41,7 @@ def is_data_authentic(data: dict, bot_token: str) -> bool:
     :param bot_token: The bot token used to calculate the HMAC hash.
     :return: True if the data is authentic, False otherwise.
     """
+    data = pop_none(data)
     check_hash = data.pop('hash')
     check_list = ['{}={}'.format(k, v) for k, v in data.items()]
     check_string = '\n'.join(sorted(check_list))
@@ -45,6 +57,7 @@ class OAuthData:
     id: Optional[int] = None
     auth_date: Optional[int] = None
     first_name: Optional[str] = None
+    last_name: Optional[str] = None
     hash: Optional[str] = None
     username: Optional[str] = None
     photo_url: Optional[str] = None
@@ -132,7 +145,11 @@ class AuthProvider(BaseAuthProvider):
         if auth_data.id in [config.bot.ADMIN_ID, config.bot.DEV_ID]:
             roles = AdminRoles.all()
         else:
-            admin = await AdminDB.get_by_key(request.state.sessionmaker, AdminDB.user_id, auth_data.id)
+            admin = await AdminDB.get_by_key(
+                request.state.sessionmaker,
+                key=AdminDB.user_id,
+                value=auth_data.id,
+            )
             roles = admin.roles if admin else None
 
         if roles and is_data_authentic(auth_data.to_dict(), config.bot.TOKEN):
@@ -157,13 +174,18 @@ class AuthProvider(BaseAuthProvider):
         :return: True if the user is authenticated, False otherwise.
         """
         config: Config = request.state.config
-        admin_id = request.session.get("id", None)
+        admin_id = request.session.get("id")
         if (
                 admin_id in [config.bot.ADMIN_ID, config.bot.DEV_ID] or
-                await AdminDB.get_by_key(request.state.sessionmaker, AdminDB.user_id, admin_id)
+                await AdminDB.get_by_key(
+                    request.state.sessionmaker,
+                    key=AdminDB.user_id,
+                    value=admin_id,
+                )
         ):
             request.state.user = request.session
             return True
+
         return False
 
     def get_admin_user(self, request) -> AdminUser:
@@ -210,20 +232,39 @@ class AuthMiddleware(BaseAuthMiddleware):
     async def dispatch(
             self, request: Request, call_next: RequestResponseEndpoint
     ) -> Response:
-        """
-        Perform the authentication check and dispatch the request.
+        """This middleware checks if the requested admin endpoint requires login.
+        If login is required, it redirects to the login page when the user is
+        not authenticated.
 
-        :param request: The request object.
-        :param call_next: The next request-response call.
-        :return: The response from the next call or a redirect response if authentication fails.
+        Endpoints are authorized without login if:
+
+        - They are decorated with `@login_not_required`
+        - Their path is in `allow_paths`
+        - Their name is in `allow_routes`
+        - The user is already authenticated
         """
-        if request.scope["path"] not in self.allow_paths and not (
-                await self.provider.is_authenticated(request)
+        _admin_app: Starlette = request.scope["app"]
+        current_route: Optional[Union[Route, Mount, WebSocketRoute]] = None
+        for route in _admin_app.routes:
+            match, _ = route.matches(request.scope)
+            if match == Match.FULL:
+                assert isinstance(route, (Route, Mount, WebSocketRoute))
+                current_route = route
+                break
+        if (
+                (current_route is not None and current_route.path in self.allow_paths)
+                or (current_route is not None and current_route.name in self.allow_routes)
+                or (
+                current_route is not None
+                and hasattr(current_route, "endpoint")
+                and getattr(current_route.endpoint, "_login_not_required", False)
+        )  # noqa
+                or await self.provider.is_authenticated(request)
         ):
-            return RedirectResponse(
-                "{url}".format(
-                    url=request.url_for(request.app.state.ROUTE_NAME + ":login"),
-                ),
-                status_code=HTTP_303_SEE_OTHER,
-            )
-        return await call_next(request)
+            return await call_next(request)
+        return RedirectResponse(
+            "{url}".format(
+                url=request.url_for(request.app.state.ROUTE_NAME + ":login"),
+            ),
+            status_code=HTTP_303_SEE_OTHER,
+        )

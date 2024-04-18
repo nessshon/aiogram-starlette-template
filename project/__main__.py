@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 import uvicorn
+from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
@@ -87,7 +88,9 @@ sessionmaker = async_sessionmaker(
 # Create bot and dispatcher instances
 bot = Bot(
     token=config.bot.TOKEN,
-    parse_mode=ParseMode.HTML,
+    default=DefaultBotProperties(
+        parse_mode=ParseMode.HTML,
+    )
 )
 storage = RedisStorage.from_url(
     url=config.redis.dsn(),
@@ -128,8 +131,6 @@ bot_middlewares_register(dp, config=config, redis=storage.redis, sessionmaker=se
 # Include bot routers
 bot_routers_include(dp)
 
-# Initialize admin routes
-admin.init_routes()
 # Mount admin panel
 admin.mount_to(app)
 # Add admin views
