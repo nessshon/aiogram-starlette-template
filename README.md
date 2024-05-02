@@ -113,6 +113,8 @@ Launches the admin panel, Telegram Bot and phpMyAdmin.
 
 ## Environment Variables Reference
 
+<details>
+<summary>Click to expand</summary>
 Here is a reference guide for the environment variables used in the project:
 
 | Variable            | Type | Description                                                   | Example Local             | Example Prod        |
@@ -136,3 +138,21 @@ Here is a reference guide for the environment variables used in the project:
 | MYSQL_PASSWORD      | str  | The password for accessing the database                       | password                  | password            |
 | MYSQL_DATABASE      | str  | The name of the database                                      | dbname                    | dbname              |
 | CERTBOT_EMAIL       | str  | Email address for Certbot notifications                       | --skip--                  | example@mail.com    |
+
+</details>
+
+## Contribution
+
+We welcome your contributions! If you have ideas for improvement or have identified a bug, please create an issue or
+submit a pull request.
+
+## Donations
+
+**TON** - `EQC-3ilVr-W0Uc3pLrGJElwSaFxvhXXfkiQA3EwdVBHNNess`
+
+**USDT** (TRC-20) - `TJjADKFT2i7jqNJAxkgeRm5o9uarcoLUeR`
+
+## License
+
+This repository is distributed under the [MIT License](LICENSE).
+Feel free to use, modify, and distribute the code in accordance with the terms of the license.
